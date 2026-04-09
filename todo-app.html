@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do List App</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+      color: white;
+    }
+
+    .container {
+      background: #1e1e2f;
+      padding: 20px;
+      border-radius: 12px;
+      width: 350px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .input-section {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    button {
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #28a745;
+      color: white;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: #2e2e44;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    li.completed {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+
+    .delete {
+      background: #dc3545;
+      padding: 5px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>To-Do List</h2>
+
+  <div class="input-section">
+    <input type="text" id="taskInput" placeholder="Enter task">
+    <button onclick="addTask()">Add</button>
+  </div>
+
+  <ul id="taskList"></ul>
+</div>
+
+<script>
+  function addTask() {
+    let input = document.getElementById("taskInput");
+    let taskText = input.value.trim();
+
+    if (taskText === "") return;
+
+    let li = document.createElement("li");
+
+    li.innerHTML = `
+      <span onclick="toggleComplete(this)">${taskText}</span>
+      <button class="delete" onclick="deleteTask(this)">X</button>
+    `;
+
+    document.getElementById("taskList").appendChild(li);
+    input.value = "";
+  }
+
+  function deleteTask(btn) {
+    btn.parentElement.remove();
+  }
+
+  function toggleComplete(task) {
+    task.parentElement.classList.toggle("completed");
+  }
+
+  // Add task with Enter key
+  document.getElementById("taskInput").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+      addTask();
+    }
+  });
+</script>
+
+</body>
+</html>

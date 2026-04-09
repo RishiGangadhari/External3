@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Advanced Registration Form</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      width: 400px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 14px;
+      margin-top: 10px;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .row input {
+      flex: 1;
+    }
+
+    .gender {
+      display: flex;
+      gap: 15px;
+      margin-top: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background: #4facfe;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #00c6ff;
+    }
+
+    .error {
+      color: red;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Registration Form</h2>
+
+  <form onsubmit="return validateForm()">
+
+    <!-- Name -->
+    <div class="row">
+      <div>
+        <label>First Name</label>
+        <input type="text" id="firstName">
+        <div class="error" id="firstNameError"></div>
+      </div>
+      <div>
+        <label>Last Name</label>
+        <input type="text" id="lastName">
+      </div>
+    </div>
+
+    <!-- Email -->
+    <label>Email</label>
+    <input type="email" id="email">
+    <div class="error" id="emailError"></div>
+
+    <!-- Phone -->
+    <label>Phone Number</label>
+    <input type="tel" id="phone">
+    <div class="error" id="phoneError"></div>
+
+    <!-- DOB -->
+    <label>Date of Birth</label>
+    <input type="date" id="dob">
+
+    <!-- Gender -->
+    <label>Gender</label>
+    <div class="gender">
+      <label><input type="radio" name="gender" value="Male"> Male</label>
+      <label><input type="radio" name="gender" value="Female"> Female</label>
+      <label><input type="radio" name="gender" value="Other"> Other</label>
+    </div>
+
+    <!-- Country -->
+    <label>Country</label>
+    <select id="country">
+      <option value="">Select Country</option>
+      <option>India</option>
+      <option>USA</option>
+      <option>UK</option>
+    </select>
+
+    <!-- Password -->
+    <label>Password</label>
+    <input type="password" id="password">
+    <div class="error" id="passwordError"></div>
+
+    <!-- Confirm Password -->
+    <label>Confirm Password</label>
+    <input type="password" id="confirmPassword">
+    <div class="error" id="confirmError"></div>
+
+    <!-- Terms -->
+    <label>
+      <input type="checkbox" id="terms"> I agree to Terms & Conditions
+    </label>
+    <div class="error" id="termsError"></div>
+
+    <button type="submit">Register</button>
+  </form>
+</div>
+
+<script>
+function validateForm() {
+  let valid = true;
+
+  let firstName = document.getElementById("firstName").value;
+  let email = document.getElementById("email").value;
+  let phone = document.getElementById("phone").value;
+  let password = document.getElementById("password").value;
+  let confirmPassword = document.getElementById("confirmPassword").value;
+  let terms = document.getElementById("terms").checked;
+
+  // Clear errors
+  document.querySelectorAll(".error").forEach(e => e.innerText = "");
+
+  if (firstName === "") {
+    document.getElementById("firstNameError").innerText = "First name required";
+    valid = false;
+  }
+
+  if (!email.includes("@")) {
+    document.getElementById("emailError").innerText = "Invalid email";
+    valid = false;
+  }
+
+  if (phone.length < 10) {
+    document.getElementById("phoneError").innerText = "Invalid phone number";
+    valid = false;
+  }
+
+  if (password.length < 6) {
+    document.getElementById("passwordError").innerText = "Min 6 characters required";
+    valid = false;
+  }
+
+  if (password !== confirmPassword) {
+    document.getElementById("confirmError").innerText = "Passwords do not match";
+    valid = false;
+  }
+
+  if (!terms) {
+    document.getElementById("termsError").innerText = "You must accept terms";
+    valid = false;
+  }
+
+  return valid;
+}
+</script>
+
+</body>
+</html>
